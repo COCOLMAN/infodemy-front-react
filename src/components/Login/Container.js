@@ -9,7 +9,12 @@ export default class Container extends React.Component{
 	return(
 	    <div className='wrapper-page'>
 	      <Text content={this.props.content}/>
-	      <FormContainer/>
+	      <FormContainer inputId={ this.props.inputId }
+			     inputPassword={ this.props.inputPassword }
+			     user_id={this.props.user_id}
+			     password={this.props.password}
+			     onLogin={this.props.onLogin}
+			     />
 	    </div>
 	);
     }
