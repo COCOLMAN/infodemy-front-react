@@ -75,8 +75,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-	inputId: (user_id) => { dispatch(actions.inputId(user_id));},
-	inputPassword: (password) => { dispatch(actions.inputPassword(password)); },
+	inputId: (user_id) => { dispatch(actions.setId(user_id));},
+	inputPassword: (password) => { dispatch(actions.setPassword(password)); },
 	setToken: (token) => { dispatch(actions.setToken(token)); }
     };
 };
