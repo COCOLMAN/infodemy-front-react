@@ -4,6 +4,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { Login } from './components/Login/';
+import { SignUp } from './components/SignUp/';
 
 
 class App extends Component {
@@ -11,7 +12,9 @@ class App extends Component {
     return (
 	<Router>
 	  <div>
+	    <Route exact path='/' />
 	    <Route path='/login' component={Login}/>
+	    <Route path='/signup' component={SignUp}/>
 	  </div>
 	</Router>
     );

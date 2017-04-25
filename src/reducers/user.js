@@ -8,15 +8,20 @@ const initialState = {
 
 export default function user(state=initialState, action){
     switch(action.type){
-    case types.INPUT_ID:
+    case types.SET_ID:
 	return {
 	    ...state,
 	    user_id: action.user_id
 	};
-    case types.INPUT_PASSWORD:
+    case types.SET_PASSWORD:
 	return{
 	    ...state,
 	    password: action.password
+	};
+    case types.SET_TOKEN:
+	return{
+	    ...state,
+	    token: action.token
 	};
     default:
 	return state;
