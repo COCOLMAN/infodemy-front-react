@@ -7,7 +7,7 @@ const initialState = {
     confirm_password: '',
     email: '',
     name: '',
-    phoen: '',
+    phone: '',
     token: ''
 };
 
@@ -38,7 +38,7 @@ export default function user(state=initialState, action){
 	    ...state,
 	    name: action.name
 	};
-    case types.SET_PHOEN:
+    case types.SET_PHONE:
 	return{
 	    ...state,
 	    phone: action.phone

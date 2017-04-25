@@ -49,6 +49,15 @@ class SignUp extends React.Component{
 	return true;
     }
 
+    _checkPwd(input){
+	const reg = /^[A-Za-z]\w{10, 30}$/;
+	if(/^[a-zA-Z0-9!@#$%^&*()?_~]{6,15}$/.test(input)){
+	    return true;
+	}else{
+	    return false;
+	}
+    }
+
     _validate_password(){
 	if(this.props.password !== this.props.confirm_password){
 	    this._notificationSystem.addNotification({
@@ -57,34 +66,57 @@ class SignUp extends React.Component{
 	    });
 	    return false;
 	}
-	console.log(this.props.password.length);
-	if(this.props.password.length < 10){
+	if(this.props.password.length < 10 || this.props.password.length > 30){
 	    this._notificationSystem.addNotification({
-		message: "패스워드는 10글자 이상입력해야 합니다. ",
+		message: "패스워드는 숫자 포함 10글자 이상입력해야 합니다. (30자리이하)",
 		level: 'error'
-	    });	    
+	    });
+	    return false;
 	}
-
+	if(!this._checkPwd(this.props.password)){
+	    this._notificationSystem.addNotification({
+		message: "숫자, 특수문자는 반드시 포함되어져야 합니다.",
+		level: 'error'
+	    });
+	    return false;
+	}
 	return true;
     }
 
     _validate_phone(){
-
-    }
-
-    _validate_email(){
-
-    }
-
-    _validate_name(){
-
+	if(this.props.phone.length===13 && this.props.phone.length===11){
+	    this._notificationSystem.addNotification({
+		message: "핸드폰 번호 양식이 틀립니다.(010-1234-1234 혹은 01012341234)",
+		level: 'error'
+	    });
+	    return false;	    
+	}
+	return true;
     }
 
     onSignUp(){
+	this._validate_id();
+	this._validate_password();
+	this._validate_phone();
+	let params = new URLSearchParams();
+	params.append('user_id', this.props.user_id);
+	params.append('password', this.props.password);
+	params.append('password1', this.props.confirm_password);
+	params.append('name', this.props.name);
+	params.append('phone', this.props.phone);
+	params.append('email', this.props.email);
+	axios.post('/user/signup/',
+		   params
+		  )
+	    .then((response) =>{
+		console.log("???????????????");
+		console.log(response.data);
+	    })
+	    .catch((e)=>{
+		console.log(e.data);
+	    });
 	this.props.confirmPassword('');	
 	this.props.setPassword('');
-	console.log(this.props.confirm_password);
-	console.log(this.props.password);
     }
 
     render(){
