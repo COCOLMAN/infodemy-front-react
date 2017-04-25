@@ -26,14 +26,24 @@ class Login extends React.Component{
 		level: 'error'
 	    });
 	} else {
-	    axios.post('http://infodemy-dev-env.ap-northeast-2.elasticbeanstalk.com/' + 'user/' + 'login/', {
-		id: this.props.user_id,
-		password: this.props.password
-	    })
+	    let params = new URLSearchParams();
+	    params.append('id', this.props.user_id);
+	    params.append('password', this.props.password);
+	    axios.post('http://infodemy-dev-env.ap-northeast-2.elasticbeanstalk.com/' + 'user/' + 'login/', 
+		       params
+		      )
 		.then((response)=>{
-		    console.log(response.data);
+		    this.props.setToken(response.data.Token);
+		    axios.defaults.headers.common['Authorization'] = 'Token ' +this.props.token;
+		    this.props.history.push('/');
+		})
+		.catch(()=>{
+		    this._notificationSystem.addNotification({
+			message: "입력한 정보가 정확하지 않습니다.",
+			level: 'warning'
+		    });
 		});
-
+	    this.props.inputPassword('');
 	}
     }
 
@@ -57,7 +67,8 @@ class Login extends React.Component{
 const mapStateToProps = (state) => {
     return {
 	user_id: state.user.user_id,
-	password: state.user.password
+	password: state.user.password,
+	token: state.user.token
     };
 };
 
@@ -65,7 +76,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return{
 	inputId: (user_id) => { dispatch(actions.inputId(user_id));},
-	inputPassword: (password) => { dispatch(actions.inputPassword(password)); }
+	inputPassword: (password) => { dispatch(actions.inputPassword(password)); },
+	setToken: (token) => { dispatch(actions.setToken(token)); }
     };
 };
 

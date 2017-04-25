@@ -29,6 +29,13 @@ export class PasswordForm extends React.Component{
 	      onChange={(e) => {
 		  this.props.onChange(e.target.value);
 	      }}
+	      onKeyPress={
+		  (target) => {
+		      if (target.charCode === 13){
+			  this.props.onLogin();
+		      }
+		  }
+	      }
 	      />
 	);
     }

@@ -22,6 +22,7 @@ export default class FormContainer extends React.Component{
 		  <PasswordForm holder='Password'
 				onChange={ this.props.inputPassword }
 				value={ this.props.password }
+				onLogin={ this.props.onLogin }
 			    />
 		  <i className='md md-vpn-key form-control-feedback l-h-34'/>
 		</div>
@@ -44,7 +45,7 @@ export default class FormContainer extends React.Component{
 		  </Link>
 		</div>
 		<div className='col-sm-5 text-right'> 
-		    <Link className='text-muted' to='/login'>
+		    <Link className='text-muted' to='/signup'>
 		      회원가입
 		    </Link>
 		  </div>
