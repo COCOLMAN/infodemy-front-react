@@ -65,6 +65,8 @@ export default class FormContainer extends React.Component{
 	      <div className='form-group'>
 		<div className='col-xs-12'>
 		  <FileForm holder='Profile Image'
+			    onChange={this.props.setMyImg}
+			    value={this.props.image}
 			    />
 		  <i className='md md-contacts form-control-feedback l-h-34'/>
 		</div>

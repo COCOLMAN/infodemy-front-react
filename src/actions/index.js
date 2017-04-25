@@ -43,6 +43,13 @@ export function setPhone(phone){
     };
 }
 
+export function setMyImg(image){
+    return{
+	type: types.SET_MYIMG,
+	image
+    };
+}
+
 export function setToken(token){
     return {
 	type: types.SET_TOKEN,

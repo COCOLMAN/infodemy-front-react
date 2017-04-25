@@ -95,26 +95,33 @@ class SignUp extends React.Component{
     }
 
     onSignUp(){
-	this._validate_id();
-	this._validate_password();
-	this._validate_phone();
-	let params = new URLSearchParams();
-	params.append('user_id', this.props.user_id);
-	params.append('password', this.props.password);
-	params.append('password1', this.props.confirm_password);
-	params.append('name', this.props.name);
-	params.append('phone', this.props.phone);
-	params.append('email', this.props.email);
-	axios.post('/user/signup/',
-		   params
-		  )
-	    .then((response) =>{
-		console.log("???????????????");
-		console.log(response.data);
-	    })
-	    .catch((e)=>{
-		console.log(e.data);
-	    });
+	if(this._validate_id() && this._validate_password() && this._validate_phone()){
+	    this._validate_id();
+	    this._validate_password();
+	    this._validate_phone();
+	    let params = new FormData();
+	    params.append('user_id', this.props.user_id);
+	    params.append('password', this.props.password);
+	    params.append('password1', this.props.confirm_password);
+	    params.append('name', this.props.name);
+	    params.append('phone', this.props.phone);
+	    params.append('email', this.props.email);
+	    params.append('profile_photo', this.props.image);
+	    axios.post('/user/signup/',
+		       params
+		      )
+		.then((response) =>{
+		    console.log(response.data);
+		    this.props.confirmPassword('');	
+		    this.props.setPassword('');
+		    this.props.history.push('/login');
+		})
+		.catch((error)=>{
+		    console.log("error");
+		    console.log(error.response);
+		});
+
+	}
 	this.props.confirmPassword('');	
 	this.props.setPassword('');
     }
@@ -130,12 +137,14 @@ class SignUp extends React.Component{
 		email={this.props.email}
 		name={this.props.name}
 		phone={this.props.phone}
+		image={this.props.image}
 		setId={this.props.setId}
 		setPassword={this.props.setPassword}
 		confirmPassword={this.props.confirmPassword}
 		setEmail={this.props.setEmail}
 		setPhone={this.props.setPhone}
 		setName={this.props.setName}
+		setMyImg={this.props.setMyImg}
 		onSignUp={this.onSignUp}
 		/>
 	      <NotificationSystem ref="notificationSystem"/>
@@ -151,7 +160,8 @@ const mapStateToProps = (state)=>{
 	confirm_password: state.user.confirm_password,
 	email: state.user.email,
 	phone: state.user.phone,
-	name: state.user.name
+	name: state.user.name,
+	image: state.user.image
     };
 };
 
@@ -162,7 +172,8 @@ const mapDispatchToProps = (dispatch) => {
 	confirmPassword: (confirm_password) => { dispatch(actions.confirmPassword(confirm_password)); },
 	setEmail: (email) => { dispatch(actions.setEmail(email)); },
 	setPhone: (phone) => { dispatch(actions.setPhone(phone)); },
-	setName: (name) => { dispatch(actions.setName(name)); }
+	setName: (name) => { dispatch(actions.setName(name)); },
+	setMyImg: (image) => { dispatch(actions.setMyImg(image)); }
     };
 };
 

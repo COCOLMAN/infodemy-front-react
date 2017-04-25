@@ -4,4 +4,5 @@ export const CONFIRM_PASSWORD = "CONFIRM_PASSWORD";
 export const SET_EMAIL = "SET_EMAIL";
 export const SET_NAME = "SET_NAME";
 export const SET_PHONE = "SET_PHONE";
+export const SET_MYIMG = "SET_MYIMG";
 export const SET_TOKEN = "SET_TOKEN";

@@ -48,6 +48,11 @@ export default function user(state=initialState, action){
 	    ...state,
 	    token: action.token
 	};
+    case types.SET_MYIMG:
+	return{
+	    ...state,
+	    image: action.image
+	};
     default:
 	return state;
     }

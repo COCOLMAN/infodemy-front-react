@@ -43,16 +43,10 @@ export class FileForm extends React.Component{
 	      type='file'
 	      placeholder={this.props.holder}
 	      value={this.props.value}
+	      accept="image/*"
 	      onChange={(e) => {
-		  this.props.onChange(e.target.value);
+		  this.props.onChange(e.target.files[0]);
 	      }}
-	      onKeyPress={
-		  (target) => {
-		      if (target.charCode === 13){
-			  this.props.onLogin();
-		      }
-		  }
-	      }
 	      />
 	);
     }
