@@ -11,10 +11,10 @@ export default class Main extends React.Component{
     render(){
 	return(
 	    <Router>
-	      <div>
+	      <div className="enlarged">
 		<TopMenu/>
 		<SideMenu/>
-		<Route path='academy' component={Academy}/>
+		<Route path='/academy' component={Academy}/>
 	      </div>
 	    </Router>
 	);

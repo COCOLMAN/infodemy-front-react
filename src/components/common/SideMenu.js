@@ -16,23 +16,23 @@ export default class SideMenu extends React.Component{
 		  <div className="sidebar-menu">
 		      <br/>
 		      <ul>
-			<Link to='admin/academy'>
+			<Link to='/academy'>
 			  <h3 className="text-muted">
 			    학원 찾기
 			  </h3>
 			</Link>
 			<br/>
-			<a href='/login'>
+			<Link to='/login'>
 			  <h3 className="text-muted">
 			    학원 관리
 			  </h3>
-			</a>
+			</Link>
 			<br/>
-			<a href='/login'>
+			<Link to='/login'>
 			  <h3 className="text-muted">
 			    테스트
 			  </h3>
-			</a>			
+			</Link>			
 		      </ul>
 		  </div>	      
 		</div>

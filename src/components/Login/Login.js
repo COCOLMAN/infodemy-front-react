@@ -36,6 +36,7 @@ class Login extends React.Component{
 		    this.props.setToken(response.data.Token);
 		    localStorage.setItem('token', response.data.Token);
 		    axios.defaults.headers.common['Authorization'] = 'Token ' +this.props.token;
+		    axios.defaults.baseURL = 'http://infodemy-dev-env.ap-northeast-2.elasticbeanstalk.com';
 		    this.props.history.push('/admin');
 		})
 		.catch(()=>{
