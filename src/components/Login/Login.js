@@ -34,8 +34,9 @@ class Login extends React.Component{
 		      )
 		.then((response)=>{
 		    this.props.setToken(response.data.Token);
+		    localStorage.setItem('token', response.data.Token);
 		    axios.defaults.headers.common['Authorization'] = 'Token ' +this.props.token;
-		    this.props.history.push('/');
+		    this.props.history.push('/admin');
 		})
 		.catch(()=>{
 		    this._notificationSystem.addNotification({
