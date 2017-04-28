@@ -35,11 +35,13 @@ class Login extends React.Component{
 		.then((response)=>{
 		    this.props.setToken(response.data.Token);
 		    localStorage.setItem('token', response.data.Token);
-		    axios.defaults.headers.common['Authorization'] = 'Token ' +this.props.token;
+		    axios.defaults.headers.common['Authorization'] = 'Token ' +response.data.Token;
 		    axios.defaults.baseURL = 'http://infodemy-dev-env.ap-northeast-2.elasticbeanstalk.com';
-		    this.props.history.push('/admin');
+		    this.props.logIned();
+		    this.props.history.push('/');
 		})
-		.catch(()=>{
+		.catch((error)=>{
+		    console.log(error.response);
 		    this._notificationSystem.addNotification({
 			message: "입력한 정보가 정확하지 않습니다.",
 			level: 'warning'
@@ -70,7 +72,8 @@ const mapStateToProps = (state) => {
     return {
 	user_id: state.user.user_id,
 	password: state.user.password,
-	token: state.user.token
+	token: state.user.token,
+	logined: state.user.logined
     };
 };
 
@@ -79,7 +82,8 @@ const mapDispatchToProps = (dispatch) => {
     return{
 	inputId: (user_id) => { dispatch(actions.setId(user_id));},
 	inputPassword: (password) => { dispatch(actions.setPassword(password)); },
-	setToken: (token) => { dispatch(actions.setToken(token)); }
+	setToken: (token) => { dispatch(actions.setToken(token)); },
+	logIned: () => { dispatch(actions.logIned()); }
     };
 };
 

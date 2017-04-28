@@ -1,22 +1,48 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
+import * as actions from '../actions/';
 import TopMenu from './common/TopMenu';
 import SideMenu from './common/SideMenu';
 
 import Academy from './Academy/Academy';
 
 
-export default class Main extends React.Component{
+class Main extends React.Component{
+    constructor(props){
+	super(props);
+	console.log("------------");
+	console.log(this.props.logined);
+	console.log("------------");
+    }
+    
     render(){
 	return(
-	    <Router>
-	      <div className="enlarged">
+		<div>
+		<div className="enlarged">
+		{ this.props.logined ? '' : <Redirect to='/login'/> } 
 		<TopMenu/>
 		<SideMenu/>
-		<Route path='/academy' component={Academy}/>
-	      </div>
-	    </Router>
+		</div>)
+
+	    </div>
+
 	);
     }
 }
+
+const mapStateToProps = (state) => {
+    return{
+	logined: state.user.logined
+    };
+};
+
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+	logIned: () => { dispatch(actions.logIned());}
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

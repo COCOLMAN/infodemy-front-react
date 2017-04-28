@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect,  Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { Login } from './components/Login/';
 import { SignUp } from './components/SignUp/';
@@ -10,7 +11,7 @@ class App extends Component {
     return (
 	<Router>
 	  <div>
-	    <Route path='/admin' component={Main}/>
+	    <Route exact path='/' component={Main}/>
 	    <Route path='/login' component={Login}/>
 	    <Route path='/signup' component={SignUp}/>
 	  </div>
@@ -19,4 +20,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return{
+	logined: state.user.logined
+    };
+};
+
+export default connect(mapStateToProps)(App);

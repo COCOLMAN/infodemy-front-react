@@ -1,6 +1,12 @@
 import * as types from './ActionTypes';
 
 
+export function logIned(){
+    return {
+	type: types.LOGINED
+    };
+}
+
 export function setId(user_id){
     return {
 	type: types.SET_ID,

@@ -8,7 +8,8 @@ const initialState = {
     email: '',
     name: '',
     phone: '',
-    token: ''
+    token: '',
+    logined: false
 };
 
 export default function user(state=initialState, action){
@@ -52,6 +53,11 @@ export default function user(state=initialState, action){
 	return{
 	    ...state,
 	    image: action.image
+	};
+    case types.LOGINED:
+	return{
+	    ...state,
+	    logined: !state.logined
 	};
     default:
 	return state;
